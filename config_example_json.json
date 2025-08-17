@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Nike Sneakers Gr. 42",
+    "type": "shoes",
+    "max_price": 150,
+    "priority": 1,
+    "search_terms": ["nike air max", "nike jordan", "nike dunk", "nike air force"]
+  },
+  {
+    "name": "MacBook M-Serie",
+    "type": "macbook", 
+    "max_price": 1200,
+    "priority": 1,
+    "search_terms": ["macbook pro", "macbook air", "apple macbook"]
+  },
+  {
+    "name": "Camcorder & Videokameras",
+    "type": "global",
+    "max_price": 300,
+    "priority": 2,
+    "search_terms": ["camcorder", "videokamera", "handycam", "canon camcorder", "sony camcorder", "panasonic camcorder"]
+  }
+]
