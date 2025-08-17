@@ -16,7 +16,7 @@ import html # Für HTML escaping in Telegram Nachrichten
 
 # --- Dateinamen ---
 CONFIG_FILE = 'monitoring_config.json'      # Datei mit den zu überwachenden Suchanfragen und Kriterien
-SEEN_ITEMS_FILE = 'seen_tutti_items.json' # Datei zum Speichern der bereits gefundenen Inserate-URLs
+SEEN_ITEMS_FILE = 'seen_items.json' # Datei zum Speichern der bereits gefundenen Inserate-URLs
 
 # --- Telegram Bot Konfiguration ---
 # Die Bot-Tokens sind hier nach Priorität geordnet (1=wichtig, 3=unwichtig)
@@ -40,7 +40,7 @@ SIZE_FILTERS_BY_TYPE = {
 
 # --- Such-Parameter & Verhalten ---
 CHECK_INTERVAL = 1800  # Intervall in Sekunden, in dem die Suche wiederholt wird (z.B. 300 = 5 Minuten)
-BASE_URL = "https://www.tutti.ch" # Basis-URL der zu überwachenden Seite
+BASE_URL = "https://www.deine_gebrauchtplatform.ch" # Basis-URL der zu überwachenden Seite
 HEADERS = {           # User-Agent, um wie ein normaler Browser auszusehen
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
@@ -353,7 +353,7 @@ def send_telegram_notification(item_title, item_url, price, item_name, priority=
 
 def check_single_search_term(search_term, item_config, seen_items_set):
     """
-    Prüft Tutti.ch für EINEN spezifischen Suchbegriff und die zugehörige Item-Konfiguration.
+    Prüft gebrauchtplatformen.ch für EINEN spezifischen Suchbegriff und die zugehörige Item-Konfiguration.
     Extrahiert Inserate, filtert sie nach Preis und ggf. Grösse, sendet Benachrichtigungen.
     Gibt True zurück, wenn neue passende Inserate gefunden wurden, sonst False.
     """
@@ -537,7 +537,7 @@ def check_single_search_term(search_term, item_config, seen_items_set):
 def main():
     """Hauptfunktion: Lädt Konfig, startet die Endlos-Schleife zur Überwachung."""
     run_start_time = time()
-    logging.info(f"--- ==== Tutti.ch Monitor v1.0 gestartet ==== ---") # Beispiel-Version
+    logging.info(f"--- ==== gebrauchtplatformen.ch Monitor v1.0 gestartet ==== ---") # Beispiel-Version
 
     # 1. Lade Konfiguration
     monitoring_config = load_json_file(CONFIG_FILE, [])
@@ -562,7 +562,7 @@ def main():
         try:
              # Sende Startnachricht (optional, aber hilfreich)
              send_telegram_notification(
-                 "Tutti Monitor Gestartet",
+                 "gebrauchtplatformen Monitor Gestartet",
                  f"Überwachung für {len(monitoring_config)} Suchprofil(e) aktiv.",
                  None, # Kein Preis für Systemnachricht
                  "System-Status"
@@ -647,7 +647,7 @@ def main():
         logging.critical(f"💥 Kritischer Fehler in der Hauptschleife: {e}", exc_info=True)
         if TELEGRAM_ENABLED:
              try:
-                 send_telegram_notification("Tutti Monitor KRITISCHER FEHLER", f"Fehler: {e}\nSkript wird möglicherweise beendet.", None, "System-Alarm")
+                 send_telegram_notification("gebrauchtplatformen Monitor KRITISCHER FEHLER", f"Fehler: {e}\nSkript wird möglicherweise beendet.", None, "System-Alarm")
              except Exception as te:
                  logging.error(f"Konnte Telegram-Fehlermeldung nicht senden: {te}")
     finally:
@@ -663,7 +663,7 @@ def main():
 
         run_end_time = time()
         total_runtime = run_end_time - run_start_time
-        logging.info(f"--- ==== Tutti.ch Monitor beendet nach {total_runtime:.2f} Sekunden ==== ---")
+        logging.info(f"--- ==== gebrauchtplatformen.ch Monitor beendet nach {total_runtime:.2f} Sekunden ==== ---")
 
 
 # ==============================================================================
